@@ -6,7 +6,7 @@ html tables to a xlsx-file that can be opened in Microsoft Excel.
 It uses the awesome [js-xlsx](https://github.com/SheetJS/js-xlsx) plugin from
 [Sheet JS](https://github.com/SheetJS) as a dependency. Thanks!
 
-Demo
+[Demo](https://rusty1s.github.io/table2excel/demo/)
 
 ## Quick Start
 
