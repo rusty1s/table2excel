@@ -41,13 +41,13 @@ from 1.
 
 ## Cell type handlers
 
-`table2excel` detects a few special cells by default and displays them correctly in Excel:
+`table2excel` detects a few special cells by default to display them correctly in Excel:
 
-* Numbers
-* Inputs: for `input[type="text"]`, `select` or `textarea` elements
-* Dates: tries to parse the date or set the exact timestamp via `data-timestamp` on the cell (preferred!)
+* **Numbers**
+* **Inputs**: for `input[type="text"]`, `select` or `textarea` elements
+* **Dates**: tries to parse the date or set the exact timestamp via `data-timestamp` on the cell (preferred!)
 
-You can easily add custom type handlers via:
+Everything else will just get displayed as simple text. You can easily though add custom type handlers for your own needs:
 
 ```js
 Table2Excel.extend((cell, cellText) => {
