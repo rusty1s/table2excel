@@ -29,9 +29,7 @@ export default function tableToData(table) {
         cells[rowIndex].length <= range.e.c
         ) {
           // ... fill the cells with empty values
-          Array(range.e.c - range.s.c + 1).fill(0).forEach(() => {
-            cells[rowIndex].push(null);
-          });
+          for (let i = range.s.c; i < range.e.c; i++) cells[rowIndex].push(null);
         }
       });
 
@@ -56,9 +54,7 @@ export default function tableToData(table) {
 
       // if we are in a following colspan ...
       if (colspan > 1) {
-        Array(colspan - 1).fill(0).forEach(() => {
-          cells[rowIndex].push(null);
-        });
+        for (let i = 1; i < colspan; i++) cells[rowIndex].push(null);
       }
     });
   });

@@ -1,4 +1,4 @@
-import XLSX from 'xlsx-style';
+import XLSX from 'xlsx';
 import { saveAs } from 'filesaver.js';
 
 import tableToData from './helpers/table-to-data';

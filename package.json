@@ -66,6 +66,6 @@
   "dependencies": {
     "filesaver.js": "^0.2.0",
     "object-assign": "^4.1.0",
-    "xlsx-style": "^0.8.13"
+    "xlsx": "^0.8.0"
   }
 }

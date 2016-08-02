@@ -15,10 +15,6 @@ export default {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
-      /*{
-        test: /\.min\.js$/,
-        loader: 'script',
-      },*/
     ],
   },
   plugins: [

@@ -1,4 +1,4 @@
-import XLSX from 'xlsx-style';
+import XLSX from 'xlsx';
 
 import cellToObject from './cell-to-object';
 
