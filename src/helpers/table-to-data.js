@@ -29,16 +29,17 @@ export default function tableToData(table) {
         cells[rowIndex].length <= range.e.c
         ) {
           // ... fill the cells with empty values
-          Array(range.e.c - range.s.c + 1).forEach(() => {
+          Array(range.e.c - range.s.c + 1).fill(0).forEach(() => {
             cells[rowIndex].push(null);
           });
         }
       });
 
-      // detect new rowspan or colspan
-      const colspan = cell.colSpan || 1;
-      const rowspan = cell.rowSpan || 1;
-      if (rowspan !== 1 || colspan !== 1) {
+      // detect rowspan or colspan
+      const colspan = parseInt(cell.colSpan, 10) || 1;
+      const rowspan = parseInt(cell.rowSpan, 10) || 1;
+
+      if (rowspan > 1 || colspan > 1) {
         ranges.push({
           s: {
             r: rowIndex,
@@ -54,8 +55,8 @@ export default function tableToData(table) {
       cells[rowIndex].push(cell);
 
       // if we are in a following colspan ...
-      if (colspan) {
-        Array(colspan - 1).forEach(() => {
+      if (colspan > 1) {
+        Array(colspan - 1).fill(0).forEach(() => {
           cells[rowIndex].push(null);
         });
       }

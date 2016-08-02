@@ -28,6 +28,8 @@ import Table2Excel from 'table2excel';
 const table2excel = new Table2Excel(options);
 ```
 
+See my `webpack` configuration to see how to get `js-xlsx` running with `webpack` in the browser.
+
 ## Additional options
 
 You can pass in options as a parameter like `new Table2Excel(options)`.
@@ -45,7 +47,7 @@ from 1.
 
 * **Numbers**
 * **Inputs**: for `input[type="text"]`, `select` or `textarea` elements
-* **Dates**: tries to parse the date or set the exact timestamp via `data-timestamp` on the cell (preferred!)
+* **Dates**: tries to parse the date or set the exact timestamp via `data-timestamp` on the cell (recommended!)
 
 Everything else will just get displayed as simple text. You can easily though add custom type handlers for your own needs:
 

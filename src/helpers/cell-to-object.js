@@ -10,13 +10,13 @@
  */
 export default function cellToObject(cell, typeHandlers) {
   let cellObject = null;
-  const text = cell.innerText || '';
+  const text = cell.textContent || '';
 
   // custom handlers
   typeHandlers.some(typeHandler => (cellObject = typeHandler(cell, text)));
 
   // default handler
-  if (!cellObject) cellObject = { t: 's', v: cell.innerText };
+  if (!cellObject) cellObject = { t: 's', v: text };
 
   // styling
   if (cell.tagName === 'TH') cellObject.s = { font: { bold: true } };
