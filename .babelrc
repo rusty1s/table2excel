@@ -1,0 +1,9 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+    "transform-runtime",
+    "transform-strict-mode",
+    "transform-object-assign",
+    "transform-array-from"
+  ]
+}
