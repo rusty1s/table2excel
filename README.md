@@ -23,7 +23,8 @@ It uses the awesome [js-xlsx](https://github.com/SheetJS/js-xlsx) plugin from
 
 ```js
 // npm install table2excel --save
-import Table2Excel from 'table2excel';
+import 'table2excel';
+const Table2Excel = window.Table2Excel;
 
 const table2excel = new Table2Excel(options);
 ```

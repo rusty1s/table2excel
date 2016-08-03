@@ -1,5 +1,4 @@
-import XLSX from 'xlsx';
-
+import encodeCell from './encode-cell';
 import cellToObject from './cell-to-object';
 
 /**
@@ -22,7 +21,7 @@ export default function dataToWorksheet(data, typeHandlers) {
       lastColumn = Math.max(lastColumn, columnIndex);
 
       // convert the row and column indices to a XLSX index
-      const ref = XLSX.utils.encode_cell({
+      const ref = encodeCell({
         c: columnIndex,
         r: rowIndex,
       });
@@ -35,7 +34,7 @@ export default function dataToWorksheet(data, typeHandlers) {
   }, {});
 
   // calculate last table index (bottom right)
-  const lastRef = XLSX.utils.encode_cell({
+  const lastRef = encodeCell({
     c: lastColumn,
     r: cells.length - 1,
   });

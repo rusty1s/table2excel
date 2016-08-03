@@ -1,13 +1,11 @@
-import jsdom from 'mocha-jsdom';
+import 'jsdom-global/register';
 import { expect } from 'chai';
 
+import '../dist/table2excel';
+const Table2Excel = window.Table2Excel;
+
 describe('Tests', () => {
-  let Table2Excel;
-  jsdom();
-
   before(() => {
-    Table2Excel = require('../src/index').default;
-
     document.body.innerHTML =
       '<table id="table1" data-excel-name="A table">' +
         '<thead>' +

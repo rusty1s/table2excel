@@ -15,10 +15,13 @@ export default {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.min\.js$/,
+        loader: 'script',
+      },
     ],
   },
   plugins: [
-    new webpack.IgnorePlugin(/cptable/),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
     }),
@@ -28,14 +31,5 @@ export default {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-  ],
-  node: {
-    fs: 'empty',
-  },
-  externals: [
-    {
-      './cptable': 'var cptable',
-      './jszip': 'jszip',
-    },
   ],
 };

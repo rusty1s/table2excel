@@ -1,4 +1,5 @@
-import XLSX from 'xlsx';
+import 'xlsx-style/dist/xlsx.core.min';
+
 import { saveAs } from 'filesaver.js';
 
 import tableToData from './helpers/table-to-data';
@@ -100,9 +101,8 @@ export default class Table2Excel {
       return buffer;
     }
 
-    const data = XLSX.write(workbook, {
+    const data = window.XLSX.write(workbook, {
       bookType: 'xlsx',
-      bookSST: false,
       type: 'binary',
     });
 
