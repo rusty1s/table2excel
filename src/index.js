@@ -5,9 +5,11 @@ import { saveAs } from 'filesaver.js';
 import tableToData from './helpers/table-to-data';
 import dataToWorksheet from './helpers/data-to-worksheet';
 
+import listHandler from './types/list';
 import numberHandler from './types/number';
 import dateHandler from './types/date';
 import inputHandler from './types/input';
+import booleanHandler from './types/boolean';
 
 /**
  * @param {string} defaultFileName - The file name if download
@@ -22,12 +24,14 @@ const defaultOptions = {
 };
 
 /**
- * The default type handlers: numbers, dates and input fields.
+ * The default type handlers: lists, numbers, dates, input fields and booleans.
  */
 const typeHandlers = [
+  listHandler,
+  inputHandler,
   numberHandler,
   dateHandler,
-  inputHandler,
+  booleanHandler,
 ];
 
 /**

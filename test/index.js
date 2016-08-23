@@ -24,8 +24,15 @@ describe('Tests', () => {
             '<td>07 19, 2016 13:37:00</td>' +
           '</tr><tr>' +
             '<td><input type="text" value="input" /></td>' +
-            '<td><select><option>option 1</option><option>option 2</option></select></td>' +
+            '<td><select>' +
+              '<option value="1">option 1</option>' +
+              '<option value="2">option 2</option>' +
+            '</select></td>' +
             '<td><textarea>textarea</textarea></td>' +
+          '</tr><tr>' +
+            '<td><input type="checkbox" checked /></td>' +
+            '<td><input type="radio" /></td>' +
+            '<td><ul><li>1</li><li>2</li><li>3</li></ul></td>' +
           '</tr>' +
         '</tbody>' +
       '</table>' +
@@ -67,8 +74,8 @@ describe('Tests', () => {
     const table2excel = new Table2Excel();
     const worksheet = table2excel.getWorksheet(document.getElementById('table1'));
 
-    // 3 columns, 4 rows
-    expect(worksheet).to.have.property('!ref', 'A1:C4');
+    // 3 columns, 5 rows
+    expect(worksheet).to.have.property('!ref', 'A1:C5');
 
     // 1 colspan, 1 rowspan
     expect(worksheet).to.have.property('!merges');
@@ -135,6 +142,18 @@ describe('Tests', () => {
     // C4
     expect(worksheet.C4).to.have.property('t', 's');
     expect(worksheet.C4).to.have.property('v', 'textarea');
+
+    // A5
+    expect(worksheet.A5).to.have.property('t', 'b');
+    expect(worksheet.A5).to.have.property('v', true);
+
+    // B5
+    expect(worksheet.B5).to.have.property('t', 'b');
+    expect(worksheet.B5).to.have.property('v', false);
+
+    // C5
+    expect(worksheet.C5).to.have.property('t', 's');
+    expect(worksheet.C5).to.have.property('v', '1, 2, 3');
   });
 
   it('should extend its default cell type handlers', () => {

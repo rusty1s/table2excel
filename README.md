@@ -49,6 +49,8 @@ from 1.
 * **Numbers**
 * **Inputs**: for `input[type="text"]`, `select` or `textarea` elements
 * **Dates**: tries to parse the date or set the exact timestamp via `data-timestamp` on the cell (recommended!)
+* **Booleans**: parses `'true'`, `'false'` or checkboxes/radios without text to booleans
+* **Lists**: parses `<ul>...</ul>` or `<ol>...</ol>` list elements to `'..., ...'`
 
 Everything else will just get displayed as simple text. You can easily though add custom type handlers for your own needs:
 
