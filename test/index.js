@@ -24,6 +24,7 @@ describe('Tests', () => {
             '<td>07 19, 2016 13:37:00</td>' +
           '</tr><tr>' +
             '<td><input type="text" value="input" /></td>' +
+            '<td style="display: none">this should not appear</td>' +
             '<td><select>' +
               '<option value="1">option 1</option>' +
               '<option value="2">option 2</option>' +
