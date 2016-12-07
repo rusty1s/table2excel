@@ -31,7 +31,7 @@ export default function tableToData(table) {
             cells[rowIndex].length <= range.e.c
           ) {
             // ... fill the cells with empty values
-            for (let i = range.s.c; i < range.e.c; i++) {
+            for (let i = range.s.c; i <= range.e.c; i++) {
               cells[rowIndex].push(null);
             }
           }
