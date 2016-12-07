@@ -19,7 +19,7 @@ export default function cellToObject(cell, typeHandlers) {
   if (!cellObject) cellObject = { t: 's', v: text };
 
   // styling
-  if (cell.tagName === 'TH') cellObject.s = { font: { bold: true } };
+  //if (cell.tagName === 'TH') cellObject.s = { font: { bold: true } };
 
   return cellObject;
 }
