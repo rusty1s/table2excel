@@ -80,7 +80,14 @@ export default class Table2Excel {
   getWorkbook(tables) {
     return Array.from(tables.length ? tables : [tables])
       .reduce((workbook, table, index) => {
-        const dataName = table.getAttribute(`data-${this.tableNameDataAttribute}`);
+        let dataName = '';
+
+        if (table.querySelector('caption')){
+          dataName = table.querySelector('caption').innerText;
+        } else {
+          dataName = table.getAttribute(`data-${this.tableNameDataAttribute}`);
+        }
+
         const name = dataName || (index + 1).toString();
 
         let worksheet = this.getWorksheet(table);
