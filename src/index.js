@@ -5,6 +5,9 @@ import { saveAs } from 'filesaver.js';
 import tableToData from './helpers/table-to-data';
 import dataToWorksheet from './helpers/data-to-worksheet';
 
+import {decodeCell, decodeRange } from './helpers/decode-cell.js';
+import {encodeCell, encodeRange} from './helpers/encode-cell.js';
+
 import listHandler from './types/list';
 import numberHandler from './types/number';
 import dateHandler from './types/date';
@@ -21,6 +24,18 @@ import booleanHandler from './types/boolean';
 const defaultOptions = {
   defaultFileName: 'file',
   tableNameDataAttribute: 'excel-name',
+
+  /**
+   * The event will be fired before add worksheet
+   * into workbook
+   *
+   * @param {object} worksheet
+   * @param {string} name - worksheet name
+   * @returns {object} worksheet
+   */
+  beforeWorksheetAdded: function(worksheet, name){
+    return worksheet;
+  },
 };
 
 /**
@@ -68,8 +83,14 @@ export default class Table2Excel {
         const dataName = table.getAttribute(`data-${this.tableNameDataAttribute}`);
         const name = dataName || (index + 1).toString();
 
+        let worksheet = this.getWorksheet(table);
+
+        if (typeof this.beforeWorksheetAdded === 'function'){
+          worksheet = this.beforeWorksheetAdded(worksheet, name);
+        }
+
         workbook.SheetNames.push(name);
-        workbook.Sheets[name] = this.getWorksheet(table);
+        workbook.Sheets[name] = worksheet;
 
         return workbook;
       }, { SheetNames: [], Sheets: {} });
@@ -87,6 +108,62 @@ export default class Table2Excel {
     }
 
     return dataToWorksheet(tableToData(table), typeHandlers);
+  }
+
+
+  /**
+   * Change top-left table corner.
+   * At the same time there is a shift of all internal objects
+   *
+   * @param {object} WS - worksheet object
+   * @param {object} newPos - new top-left coordinate
+   * @returns {object}
+   */
+  depositionWorksheetTable(WS = {}, newPos = {c: 0, r: 0}){
+    let decodeCellItem = {},
+      decodeRangeItem = {},
+      newWS = {
+        '!merges': [],
+        '!ref': '',
+      };
+
+    for (let key in WS) {
+      switch(key){
+        case '!merges':
+          for (let mergeKey in WS[key]) {
+            newWS['!merges'].push({
+              e: {
+                c: WS[key][mergeKey].e.c + newPos.c,
+                r: WS[key][mergeKey].e.r + newPos.r,
+              },
+              s: {
+                c: WS[key][mergeKey].s.c + newPos.c,
+                r: WS[key][mergeKey].s.r + newPos.r,
+              },
+            });
+          }
+          break;
+        case '!ref':
+          decodeRangeItem = decodeRange(WS[key]);
+
+          /**
+           * We don't move start range position (A1)
+           */
+          decodeRangeItem.e.c += newPos.c;
+          decodeRangeItem.e.r += newPos.r;
+
+          newWS['!ref'] = encodeRange(decodeRangeItem);
+          break;
+        default:
+          decodeCellItem = decodeCell(key);
+          decodeCellItem.c += newPos.c;
+          decodeCellItem.r += newPos.r;
+
+          newWS[encodeCell(decodeCellItem)] = WS[key];
+          break;
+      }
+    }
+    return newWS;
   }
 
   /**
@@ -114,6 +191,7 @@ export default class Table2Excel {
     saveAs(blob, `${fileName}.xlsx`);
   }
 }
+
 
 // add global reference to `window` if defined
 if (window) window.Table2Excel = Table2Excel;

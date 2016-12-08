@@ -14,6 +14,10 @@ function encodeRow(row) {
   return (row + 1).toString();
 }
 
-export default function encodeCell(cell) {
+export function encodeCell(cell) {
   return encodeCol(cell.c) + encodeRow(cell.r);
+}
+
+export function encodeRange(range) {
+  return encodeCell(range.s) + ':' + encodeCell(range.e);
 }

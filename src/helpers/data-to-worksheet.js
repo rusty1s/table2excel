@@ -1,4 +1,4 @@
-import encodeCell from './encode-cell';
+import {encodeCell} from './encode-cell.js';
 import cellToObject from './cell-to-object';
 
 /**
