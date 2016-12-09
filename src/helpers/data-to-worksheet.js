@@ -42,6 +42,22 @@ export default function dataToWorksheet(data, typeHandlers) {
   // add last table index and ranges to the worksheet
   worksheet['!ref'] = `A1:${lastRef}`;
   worksheet['!merges'] = ranges;
+  worksheet['!cols'] = [];
+
+  const colsParams = cells.reduce((sheet, row, rowIndex) => {
+    // iterate over all row cells
+    row.forEach((cell, columnIndex) => {
+      // only save actual cells and convert them to XLSX-Cell objects
+      if (cell) {
+        worksheet['!cols'].push({
+          wpx: cell.offsetWidth
+        });
+
+      } else {
+        worksheet['!cols'].push(null);
+      }
+    });
+  }, {});
 
   return worksheet;
 }
