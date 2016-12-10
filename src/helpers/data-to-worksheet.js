@@ -27,7 +27,11 @@ export default function dataToWorksheet(data, typeHandlers) {
       });
 
       // only save actual cells and convert them to XLSX-Cell objects
-      if (cell) sheet[ref] = cellToObject(cell, typeHandlers);
+      if (cell) {
+        sheet[ref] = cellToObject(cell, typeHandlers);
+      } else {
+          sheet[ref] =  { t: 's', v: '' };
+      }
     });
 
     return sheet;
