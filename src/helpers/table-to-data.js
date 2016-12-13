@@ -63,5 +63,23 @@ export default function tableToData(table) {
       });
   });
 
+  //fill cell for common elements at the edges
+  cells.forEach((row, rowIndex) => {
+    "use strict";
+
+    ranges.forEach(range => {
+      if (
+      rowIndex >= range.s.r &&
+      rowIndex <= range.e.r &&
+      cells[rowIndex].length <= range.s.c
+      ) {
+        for (let i = range.s.c; i <= range.e.c; i++) {
+          cells[rowIndex].push(null);
+        }
+      }
+    });
+  });
+
+
   return { cells, ranges };
 }
