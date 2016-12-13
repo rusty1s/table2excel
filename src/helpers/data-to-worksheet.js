@@ -48,20 +48,34 @@ export default function dataToWorksheet(data, typeHandlers) {
   worksheet['!merges'] = ranges;
   worksheet['!cols'] = [];
 
-  const colsParams = cells.reduce((sheet, row, rowIndex) => {
+  let cols = {};
+  for(let i = 0; i <= cells[0].length; i++){
+    cols['cell' + i] = false;
+  }
+
+  cells.reduce((sheet, row, rowIndex) => {
     // iterate over all row cells
     row.forEach((cell, columnIndex) => {
-      // only save actual cells and convert them to XLSX-Cell objects
-      if (cell) {
-        worksheet['!cols'].push({
-          wpx: cell.offsetWidth
-        });
 
-      } else {
-        worksheet['!cols'].push(null);
+      if (cell){
+        const colspan = parseInt(cell.colSpan, 10) || 1;
+        if ((colspan == 1) && (!cols['cell' + columnIndex])){
+          cols['cell' + columnIndex] = {
+            wpx: cell.offsetWidth
+          };
+        }
       }
     });
   }, {});
 
+  for(let key in cols){
+    if (cols[key]){
+      worksheet['!cols'].push(cols[key]);
+    } else {
+      worksheet['!cols'].push(null);
+    }
+  }
+
+console.log(worksheet);
   return worksheet;
 }
