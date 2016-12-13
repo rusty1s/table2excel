@@ -75,7 +75,5 @@ export default function dataToWorksheet(data, typeHandlers) {
       worksheet['!cols'].push(null);
     }
   }
-
-console.log(worksheet);
   return worksheet;
 }

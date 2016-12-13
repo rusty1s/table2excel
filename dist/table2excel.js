@@ -2456,8 +2456,6 @@
 	      worksheet['!cols'].push(null);
 	    }
 	  }
-
-	  console.log(worksheet);
 	  return worksheet;
 	}
 
